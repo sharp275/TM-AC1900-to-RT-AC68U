@@ -42,8 +42,11 @@ Process adapted from this [medium post](https://moreless.medium.com/flash-tm-ac-
 
 Download TM-AC1900toRT-AC68U.7z from [here](https://mega.nz/file/jAEi0S5S#JvWZ0s9G4pwMLpaIW8jQ_q-Zd8MBdihch3ZSSAs8Vs0).  This contains 3 files.
 <code>TM-AC1900_3.0.0.4_376_1703-g0ffdbba.trx</code> is for downgrading the current firmware to allow for ssh.
+
 <code>mtd-write</code> is tool for changing the bootloader and firmware.
+
 <code>FW_RT_AC68U_30043763626.trx</code> is the firmware that makes the TM-AC1900 a RT-AC68U.
+
 &NewLine;
 Extract the files to somewhere you can easily use secure copy (scp) from. I used my Downloads folder which I mounted as a Linux drive.
 &NewLine;
@@ -83,7 +86,9 @@ In the web GUI, got Administration > System.
 Click to enable SSH and apply.
 &NewLine;
 <h2>SSH into the router</h2>
+
 &NewLine;
+
 To SSH into the router with your client of choice.  I used a chromebook with Linux setup.
 I opened a terminal and type <code>ssh ```admin@192.168.29.1```</code>
 This will most likely give you an error, <code>Unable to negotiate with 192.168.29.1 port 22: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1.</code>  
