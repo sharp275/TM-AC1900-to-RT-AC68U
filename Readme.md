@@ -112,7 +112,7 @@ Click to enable SSH and apply.
 
 To SSH into the router with your client of choice.  I used a chromebook with Linux setup.
 
-I opened a terminal and type <code>ssh ```admin@192.168.29.1```</code>.
+I opened a terminal and type <code>ssh admin@192.168.29.1</code>.
 
 This will most likely give you an error, <code>Unable to negotiate with 192.168.29.1 port 22: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1.</code>
 
