@@ -43,7 +43,7 @@ Download TM-AC1900toRT-AC68U.7z from [here](https://mega.nz/file/jAEi0S5S#JvWZ0s
 <code>mtd-write</code> is tool for changing the bootloader and firmware.
 <code>FW_RT_AC68U_30043763626.trx</code> is the firmware that makes the TM-AC1900 a RT-AC68U.
 
-Extract the files to somewhere you can easily use secure copy (scp) from.
+Extract the files to somewhere you can easily use secure copy (scp) from. I used my Downloads folder which I mounted as a Linux drive.
 
 <h2>Enable SSH</h2>
 
@@ -62,7 +62,7 @@ Connect to the router in recovery mode.
 ```
 1. Connect your computer by ethernet to the router
 2. Setup your computer to use a static IPv4 address of 192.168.29.5 subnet mask 255.255.255.0.
-3. Open a web broswer.
+3. Open a web browser.
 4. Navigate to 192.168.29.1.
 ```
 
@@ -87,4 +87,84 @@ I opened a terminal and type <code>ssh ```admin@192.168.29.1```</code>
 This will most likely give you an error, <code>Unable to negotiate with 192.168.29.1 port 22: no matching key exchange method found. Their offer: diffie-hellman-group1-sha1.</code>  
 This means diffie-hellman-group1-sha1 key exchange needs to be added to <code>/etc/ssh/ssh_config</code> or where ever appropriate for your SSH client.
 For me, I installed the nano text editor by typing <code>sudo apt install nano</code>.
-Then editted the <code>ssh_config</code> file by typing <code>sudo nano /etc/ssh/ssh_config</code>.
+Then edited the <code>ssh_config</code> file by typing <code>sudo nano /etc/ssh/ssh_config</code>.
+At the end of the file, I added
+```
+KexAlgorithms +diffie-hellman-group1-sha1
+```
+This line should be removed after completing the upgrade, since it is a legacy key exchange.
+
+If successful, enter the password for admin set earlier.
+You will get a prompt that looks like
+```
+admin@(none):/tmp/home/root#
+```
+
+First thing to do is make a copy of the bootloader sfe. Enter
+```
+cat /dev/mtd0 > original-cfe.bin
+```
+This take the output of <code>cat /dev/mtd0</code> and saves it in <code>original-cfe.bin</code> located at /tmp/home/root/.
+
+Next, I opened a new terminal on the chromebook.  Now to copy the <code>original-cfe.bin</code> to a local drive.
+I mounted the Downloads folder to <code>/mnt/chromeos/MyFiles/</code>.
+Type
+```
+scp admin@192.168.29.1:/tmp/home/root/original_cfe.bin /mnt/chromeos/MyFiles/Downloads/
+```
+
+Open a web browser on the local machine and go to https://cfeditor.pipeline.sh/.
+
+Upload <code>original-cfe.bin</code>, select 1.0.2.0 US AiMesh (RT-AC68U), and download Target CFE to the Downloads folder.
+Change the name to <code>new-cfe.bin</code>.
+
+Back in the terminal local to the chromebook (not the one SSH into the router), copy 3 files to the router.
+```
+scp /mnt/chromeos/MyFiles/Downloads/new_cfe.bin admin@192.168.29.1:/tmp/home/root/
+scp /mnt/chromeos/MyFiles/Downloads/mtd-write admin@192.168.29.1:/tmp/home/root/
+scp /mnt/chromeos/MyFiles/Downloads/FW_RT_AC68U_30043763626.trx admin@192.168.29.1:/tmp/home/root/
+```
+
+Switch to the terminal that is SSH into the router.
+<code>mtd-write</code> needs to be made executable.
+```
+chmod u+x mtd-write
+```
+Next update the bootloader.
+```
+./mtd-write new_cfe.bin boot
+```
+Finally, add the new firmware.
+
+```
+mtd-write2 FW_RT_AC68U_30043763626.trx linux
+```
+
+Perform an NVRAM reset.
+```
+1. Turn off router.
+2. Wait for 10 seconds.
+3. Press and hold WPS button.
+4. Power up the router and continue to hold WPS button for 15–20 seconds until power LED starts blinking very quickly.
+```
+
+
+The router is now a RT-AC68U with a default address 192.168.1.1/24 but the firmware cannot be upgrade until the mtd5 partition is removed.
+I needed to go back through setup and enable SSH.
+SSH into the router.
+```
+ssh admin@192.168.1.1
+```
+
+Input the following,
+```
+cat /dev/mtd5 > /jffs/mtd5_backup.bin
+mkdir /tmp/asus_jffs
+mount -t jffs2 /dev/mtdblock5 /tmp/asus_jffs
+rm -rf /tmp/asus_jffs/*
+sync && umount /tmp/asus_jffs
+rm -rf /jffs/.sys/RT-AC68U
+nvram unset fw_check && nvram commit && reboot
+```
+
+Now the firmware can be upgraded through the web GUI.
