@@ -11,6 +11,8 @@ The T-Mobile Asus TM-AC1900 Dual Band Wireless Router is an abandoned WiFi 5 rou
 
 The RT-AC68U goes for between $80 refurbished and $110 to $130 new.  The TM-AC1900 however goes for $30 to $35 on Ebay in new condition.  A firmware conversion will change a TM-AC1900 into an RT-AC68U.
 
+</h3>
+
 <table align="center">
 <tbody>
 <tr>
