@@ -5,7 +5,7 @@ Asus TM-AC1900 to RT-AC68U
 <h3>
 The T-Mobile Asus TM-AC1900 Dual Band Wireless Router is an abandoned WiFi 5 router that has the same hardware as the ASUS RT-68U, a router that features Asus's AiMesh ability.
   
-<br/>
+&NewLine;
 
 The RT-AC68U goes for between $80 refurbished and $110 to $130 new.  The TM-AC1900 however goes for $30 to $35 on Ebay in new condition.  A firmware conversion will change a TM-AC1900 into an RT-AC68U.
 
