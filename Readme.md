@@ -27,15 +27,15 @@ The RT-AC68U goes for between $80 refurbished and $110 to $130 new.  The TM-AC19
 </tbody>
 </table>
 
----
+<hr/>
 
-<h2>
+<h3>
 
 Process adapted from this <a href="https://moreless.medium.com/flash-tm-ac-1900-to-rt-ac68u-to-use-aimesh-80b84387358a">Medium post</a>. I followed this successfully on 7/20/2022.
 
-</h2>
+</h3
 
----
+<hr/>
 
 <h2>Download firmware and tools.</h2>
 
