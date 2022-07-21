@@ -38,7 +38,7 @@ Process adapted from this <a href="https://moreless.medium.com/flash-tm-ac-1900-
 
 <h2>Download firmware and tools.</h2>
 
-&NewLine;
+<br>
 
 Download TM-AC1900toRT-AC68U.7z from <a href="https://mega.nz/file/jAEi0S5S#JvWZ0s9G4pwMLpaIW8jQ_q-Zd8MBdihch3ZSSAs8Vs0">here</a>.  This contains 3 files.
 
@@ -58,7 +58,8 @@ The TM-AC1900 most likely comes with a firmware version that has disabled SSH.
 
 The router will not let you simply downgrade the firmware.  It needs to be put into rescue mode.
 
-&NewLine;
+<br>
+
 ```
 1. Hold the reset button for 10 seconds.
 2. Power off the TM-AC1900 while still holding the reset button.
@@ -67,7 +68,7 @@ The router will not let you simply downgrade the firmware.  It needs to be put i
 5. Power LED at the front panel flashes slowly, which indicates that the wireless router is in the rescue mode
 ```
 
-&NewLine;
+<br>
 
 Connect to the router in recovery mode.
 
@@ -78,36 +79,36 @@ Connect to the router in recovery mode.
 4. Navigate to 192.168.29.1.
 ```
 
-&NewLine;
+<br>
 
 The page should look like below.
-&NewLine;
+<br>
 
 <p  align="center">
 <img src="cfe.png"/>
 </p>
 
-&NewLine;
+<br>
 
 Choose <code>TM-AC1900_3.0.0.4_376_1703-g0ffdbba.trx</code> as the file and click upload.
 
-&NewLine;
+<br>
 
 After the flash finishes and the router reboots, refresh the web page at 192.168.29.1.
 
 I had to go through the initial setup to set an admin password (set it to something simple) as the default wasn't working for me.  I left it as a router.  You can set it up as an access point but the IP address and subnet mask need to be manually set.
 
-&NewLine;
+<br>
 
 In the web GUI, got Administration > System.
 
 Click to enable SSH and apply.
 
-&NewLine;
+<br>
 
 <h2>SSH into the router</h2>
 
-&NewLine;
+<br>
 
 To SSH into the router with your client of choice.  I used a chromebook with Linux setup.
 
@@ -129,7 +130,7 @@ KexAlgorithms +diffie-hellman-group1-sha1
 
 This line should be removed after completing the upgrade, since it is a legacy key exchange.
 
-&NewLine;
+<br>
 If successful, enter the password for admin set earlier.
 
 You will get a prompt that looks like
@@ -138,7 +139,7 @@ You will get a prompt that looks like
 admin@(none):/tmp/home/root#
 ```
 
-&NewLine;
+<br>
 
 First thing to do is make a copy of the bootloader sfe. Enter
 
@@ -148,7 +149,7 @@ cat /dev/mtd0 > original-cfe.bin
 
 This take the output of <code>cat /dev/mtd0</code> and saves it in <code>original-cfe.bin</code> located at /tmp/home/root/.
 
-&NewLine;
+<br>
 
 Next, I opened a new terminal on the chromebook.  Now to copy the <code>original-cfe.bin</code> to a local drive.
 
@@ -160,17 +161,17 @@ Type
 scp admin@192.168.29.1:/tmp/home/root/original_cfe.bin /mnt/chromeos/MyFiles/Downloads/
 ```
 
-&NewLine;
+<br>
 
 Open a web browser on the local machine and go to https://cfeditor.pipeline.sh/.
 
-&NewLine;
+<br>
 
 Upload <code>original-cfe.bin</code>, select 1.0.2.0 US AiMesh (RT-AC68U), and download Target CFE to the Downloads folder.
 
 Change the name to <code>new-cfe.bin</code>.
 
-&NewLine;
+<br>
 
 Back in the terminal local to the chromebook (not the one SSH into the router), copy 3 files to the router.
 
@@ -180,7 +181,7 @@ scp /mnt/chromeos/MyFiles/Downloads/mtd-write admin@192.168.29.1:/tmp/home/root/
 scp /mnt/chromeos/MyFiles/Downloads/FW_RT_AC68U_30043763626.trx admin@192.168.29.1:/tmp/home/root/
 ```
 
-&NewLine;
+<br>
 
 Switch to the terminal that is SSH into the router.
 
@@ -202,7 +203,7 @@ Finally, add the new firmware.
 mtd-write2 FW_RT_AC68U_30043763626.trx linux
 ```
 
-&NewLine;
+<br>
 
 Perform an NVRAM reset.
 
@@ -213,7 +214,7 @@ Perform an NVRAM reset.
 4. Power up the router and continue to hold WPS button for 15–20 seconds until power LED starts blinking very quickly.
 ```
 
-&NewLine;
+<br>
 
 The router is now a RT-AC68U with a default address 192.168.1.1/24 but the firmware cannot be upgrade until the mtd5 partition is removed.
 
@@ -225,7 +226,7 @@ SSH into the router.
 ssh admin@192.168.1.1
 ```
 
-&NewLine;
+<br>
 
 Input the following,
 
@@ -239,6 +240,6 @@ rm -rf /jffs/.sys/RT-AC68U
 nvram unset fw_check && nvram commit && reboot
 ```
 
-&NewLine;
+<br>
 
 Now the firmware can be upgraded through the web GUI.
