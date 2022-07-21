@@ -108,8 +108,6 @@ Click to enable SSH and apply.
 
 <h2>SSH into the router</h2>
 
-
-
 To SSH into the router with your client of choice.  I used a chromebook with Linux setup.
 
 I opened a terminal and type <code>ssh admin@192.168.29.1</code>.
@@ -137,7 +135,7 @@ You will get a prompt that looks like
 
     admin@(none):/tmp/home/root#
 
-
+<h2>Bootloader Export</h2>
 
 First thing to do is make a copy of the bootloader sfe. Enter
 
@@ -165,7 +163,7 @@ Upload <code>original-cfe.bin</code>, select 1.0.2.0 US AiMesh (RT-AC68U), and d
 
 Change the name to <code>new-cfe.bin</code>.
 
-
+<h2>Bootloader, Firmware, and Tools Import</h2>
 
 Back in the terminal local to the chromebook (not the one SSH into the router), copy 3 files to the router.
 
@@ -173,7 +171,7 @@ Back in the terminal local to the chromebook (not the one SSH into the router), 
     scp /mnt/chromeos/MyFiles/Downloads/mtd-write admin@192.168.29.1:/tmp/home/root/
     scp /mnt/chromeos/MyFiles/Downloads/FW_RT_AC68U_30043763626.trx admin@192.168.29.1:/tmp/home/root/
 
-
+<h2>Update Bootloader and Firmware</h2>
 
 Switch to the terminal that is SSH into the router.
 
@@ -198,7 +196,7 @@ Perform an NVRAM reset.
     3. Press and hold WPS button.
     4. Power up the router and continue to hold WPS button for 15–20 seconds until power LED starts blinking very quickly.
 
-
+<h2>Configure the RT-AC68U</h2>
 
 The router is now a RT-AC68U with a default address 192.168.1.1/24 but the firmware cannot be upgrade until the mtd5 partition is removed.
 
