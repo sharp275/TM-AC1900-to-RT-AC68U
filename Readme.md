@@ -5,7 +5,7 @@ Asus TM-AC1900 to RT-AC68U
 <h3>
 The T-Mobile Asus TM-AC1900 Dual Band Wireless Router is an abandoned WiFi 5 router that has the same hardware as the ASUS RT-68U, a router that features Asus's AiMesh ability.
   
-&NewLine;
+<br>
 
 The RT-AC68U goes for between $80 refurbished and $110 to $130 new.  The TM-AC1900 however goes for $30 to $35 on Ebay in new condition.  A firmware conversion will change a TM-AC1900 into an RT-AC68U.
 
@@ -30,7 +30,7 @@ The RT-AC68U goes for between $80 refurbished and $110 to $130 new.  The TM-AC19
 
 <h2>
 
-Process adapted from this [medium post](https://moreless.medium.com/flash-tm-ac-1900-to-rt-ac68u-to-use-aimesh-80b84387358a). I followed this successfully on 7/20/2022.
+Process adapted from this <a href="https://moreless.medium.com/flash-tm-ac-1900-to-rt-ac68u-to-use-aimesh-80b84387358a">Medium post</a>. I followed this successfully on 7/20/2022.
 
 </h2>
 
@@ -40,18 +40,20 @@ Process adapted from this [medium post](https://moreless.medium.com/flash-tm-ac-
 
 &NewLine;
 
-Download TM-AC1900toRT-AC68U.7z from [here](https://mega.nz/file/jAEi0S5S#JvWZ0s9G4pwMLpaIW8jQ_q-Zd8MBdihch3ZSSAs8Vs0).  This contains 3 files.
+Download TM-AC1900toRT-AC68U.7z from <a href="https://mega.nz/file/jAEi0S5S#JvWZ0s9G4pwMLpaIW8jQ_q-Zd8MBdihch3ZSSAs8Vs0">here</a>.  This contains 3 files.
+
 <code>TM-AC1900_3.0.0.4_376_1703-g0ffdbba.trx</code> is for downgrading the current firmware to allow for ssh.
 
 <code>mtd-write</code> is tool for changing the bootloader and firmware.
 
 <code>FW_RT_AC68U_30043763626.trx</code> is the firmware that makes the TM-AC1900 a RT-AC68U.
 
-&NewLine;
+<br>
+
 Extract the files to somewhere you can easily use secure copy (scp) from. I used my Downloads folder which I mounted as a Linux drive.
-&NewLine;
+<br>
 <h2>Enable SSH</h2>
-&NewLine;
+<br>
 The TM-AC1900 most likely comes with a firmware version that has disabled SSH.
 
 The router will not let you simply downgrade the firmware.  It needs to be put into rescue mode.
