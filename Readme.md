@@ -38,7 +38,7 @@ Process adapted from this [medium post](https://moreless.medium.com/flash-tm-ac-
 
 <h2>Download firmware and tools.</h2>
 
-<br/>
+&NewLine;
 
 Download TM-AC1900toRT-AC68U.7z from [here](https://mega.nz/file/jAEi0S5S#JvWZ0s9G4pwMLpaIW8jQ_q-Zd8MBdihch3ZSSAs8Vs0).  This contains 3 files.
 <code>TM-AC1900_3.0.0.4_376_1703-g0ffdbba.trx</code> is for downgrading the current firmware to allow for ssh.
